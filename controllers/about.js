@@ -73,3 +73,6 @@ exports.deleteabout = async (req, res) => {
     });
   }
 };
+
+
+//console
