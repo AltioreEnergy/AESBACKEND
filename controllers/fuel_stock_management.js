@@ -30,7 +30,8 @@ exports.addFuelstock = async (req, res) => {
   });
   let sales = 0;
   let meterseale = [];
-  let testingall = [];
+  let testingp = [];
+  let testingall = 0;
   let rs1 = rsp.rsp1;
   let rs2 = rsp.rsp2;
   let de = rsp.date;
@@ -66,13 +67,13 @@ exports.addFuelstock = async (req, res) => {
 
     for (const iterator of dsm) {
       if (iterator.tank.Product.toLowerCase() == "ms") {
-        testing.push(iterator.ms_testing);
+        testingp.push(iterator.ms_testing);
       } else {
-        testing.push(iterator.hsd_testing);
+        testingp.push(iterator.hsd_testing);
       }
     }
-    console.log("testing", testing);
-    testingall = _.sum([...testing]);
+    console.log("testing", testingp);
+    testingall = _.sum([...testingp]);
   }
   ///priveous day fulctock
 
