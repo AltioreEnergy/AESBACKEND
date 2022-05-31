@@ -23,23 +23,23 @@ exports.addrsp = async (req, res) => {
     opneing_liter2,
     rsp2,
   } = req.body;
-  let closingms = 0;
-  let closinghsd = 0;
-  let rsp = await Fs.findOne({
-    dealer_Id: req.body.dealer_Id,
+  let closingms = [];
+  let closinghsd = [];
+  let da = await RSP.findOne({ dealer_Id: dealer_Id }).sort({ createdAt: -1 });
+  let de = da.date;
+  let rsp = await Fs.find({
+    $and: [
+      {
+        dealer_Id: req.body.dealer_Id,
+      },
+      { date: de },
+    ],
   })
     .sort({
       createdAt: -1,
     })
     .populate("tank");
-
-  // var newarr = rsp.map(function (value) {
-  //   return value.msactual_closing;
-  // });
-  // var newarr2 = rsp.map(function (value) {
-  //   return value.hsdactual_closing;
-  // });
-  //  console.log("fulstok", newarr2);
+  console.log("rsp", rsp);
   if (rsp === null) {
     let rspobject = {
       dealer_Id: dealer_Id,
@@ -56,51 +56,26 @@ exports.addrsp = async (req, res) => {
     resp.successr(res, result);
     console.log(result);
   } else {
-    let product = rsp.tank.Product;
-    console.log(product);
-    if (product.toLowerCase() == "ms") {
-      console.log("if", product);
-      closingms = rsp.actual_closing_stock;
-    } else {
-      console.log("else", product);
-      closinghsd = rsp.actual_closing_stock;
+    for (const iterator of rsp) {
+      if (iterator.tank.Product.toLowerCase() == "ms") {
+        console;
+        closingms.push(iterator.actual_closing_stock);
+      } else {
+        closinghsd.push(iterator.actual_closing_stock);
+      }
     }
-    // var newarr = rsp.map(function (value) {
-    //   return value.actual_closing_stock;
-    // });
-    // console.log(newarr);
-    // let sumMs1 = _.sum([...newarr]);
-    // console.log(sumMs1);
-    // var newarr2 = rsp.map(function (value) {
-    //   return value.hsdactual_closing;
-    // });
-
-    // var sumHsd1 = _.sum([...newarr2]);
-    // console.log(sumHsd1);
-
-    // let actualstockMS = rsp.msactual_closing;
-    // console.log("actualstock", actualstockMS);
-    // let actualstockHSD = rsp.hsdactual_closing;
-    // console.log("actualstock", actualstockHSD);
-
-    // var dateOpen = new Date();
-    // console.log(dateOpen)
-    //   const op=Baymanagement.findOne().sort({createdAt:-1});
-    //   console.log(op);
-    // const op1=op.opening_total1;
-    // const op2=op.opening_total2;
-
-    //console.log("opening_total1",op1)
+    let summs = _.sum([...closingms]);
+    let sumhsd = _.sum([...closinghsd]);
     const newrsp = new RSP({
       date: date,
       dealer_Id: dealer_Id,
       opneing_dip1: parseFloat(opneing_dip1),
-      opneing_liter1: closingms,
+      opneing_liter1: summs,
 
       rsp1: parseFloat(rsp1),
 
       opneing_dip2: parseFloat(opneing_dip2),
-      opneing_liter2: closinghsd,
+      opneing_liter2: sumhsd,
 
       rsp2: parseFloat(rsp2),
     });
