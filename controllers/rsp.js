@@ -23,7 +23,8 @@ exports.addrsp = async (req, res) => {
     opneing_liter2,
     rsp2,
   } = req.body;
-  let closing;
+  let closingms = 0;
+  let closinghsd = 0;
   let rsp = await Fs.findOne({
     dealer_Id: req.body.dealer_Id,
   })
@@ -58,9 +59,11 @@ exports.addrsp = async (req, res) => {
     let product = rsp.tank.Product;
     console.log(product);
     if (product.toLowerCase() == "ms") {
-      closing = rsp.actual_closing_stock;
+      console.log("if", product);
+      closingms = rsp.actual_closing_stock;
     } else {
-      closing = rsp.actual_closing_stock;
+      console.log("else", product);
+      closinghsd = rsp.actual_closing_stock;
     }
     // var newarr = rsp.map(function (value) {
     //   return value.actual_closing_stock;
@@ -92,12 +95,12 @@ exports.addrsp = async (req, res) => {
       date: date,
       dealer_Id: dealer_Id,
       opneing_dip1: parseFloat(opneing_dip1),
-      opneing_liter1: closing,
+      opneing_liter1: closingms,
 
       rsp1: parseFloat(rsp1),
 
       opneing_dip2: parseFloat(opneing_dip2),
-      opneing_liter2: closing,
+      opneing_liter2: closinghsd,
 
       rsp2: parseFloat(rsp2),
     });
