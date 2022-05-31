@@ -48,6 +48,7 @@ exports.addFuelstock = async (req, res) => {
   let FS = await Fuelstock.findOne({
     $and: [{ dealer_Id: dealer_Id }, { tank: tank }],
   }).sort({ createdAt: -1 });
+  console.log(FS);
   if (dsm == null) {
     res.status(400).json({
       status: false,
@@ -56,8 +57,10 @@ exports.addFuelstock = async (req, res) => {
   } else {
     for (const iterator of dsm) {
       if (iterator.tank.Product.toLowerCase() == "ms") {
+        console.log(iterator.tank.Product.toLowerCase());
         meterseale.push(iterator.ms_sales);
       } else {
+        console.log(iterator.tank.Product.toLowerCase());
         meterseale.push(iterator.hsd_sales);
       }
     }
@@ -78,6 +81,7 @@ exports.addFuelstock = async (req, res) => {
   ///priveous day fulctock
 
   if (FS == null) {
+    console.log("if", FS);
     let fsobject = {
       dealer_Id: dealer_Id,
       date: de,
@@ -99,6 +103,7 @@ exports.addFuelstock = async (req, res) => {
       data: result,
     });
   } else {
+    console.log("else", FS);
     let fuelstock = FS.actual_closing_stock;
 
     const newFuelstock = new Fuelstock({
