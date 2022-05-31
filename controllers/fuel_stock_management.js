@@ -30,7 +30,7 @@ exports.addFuelstock = async (req, res) => {
   });
   let sales = 0;
   let meterseale = [];
-  let testingall = 0;
+  let testingall = [];
   let rs1 = rsp.rsp1;
   let rs2 = rsp.rsp2;
   let de = rsp.date;
