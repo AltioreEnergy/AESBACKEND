@@ -23,20 +23,23 @@ exports.addrsp = async (req, res) => {
     opneing_liter2,
     rsp2,
   } = req.body;
-
-  let rsp = await Fs.find({
+  let closing;
+  let rsp = await Fs.findOne({
     dealer_Id: req.body.dealer_Id,
-  }).sort({
-    createdAt: -1,
-  });
-  var newarr = rsp.map(function (value) {
-    return value.msactual_closing;
-  });
-  var newarr2 = rsp.map(function (value) {
-    return value.hsdactual_closing;
-  });
-  console.log("fulstok", newarr2);
-  if (newarr === null) {
+  })
+    .sort({
+      createdAt: -1,
+    })
+    .populate("tank");
+
+  // var newarr = rsp.map(function (value) {
+  //   return value.msactual_closing;
+  // });
+  // var newarr2 = rsp.map(function (value) {
+  //   return value.hsdactual_closing;
+  // });
+  //  console.log("fulstok", newarr2);
+  if (rsp === null) {
     let rspobject = {
       dealer_Id: dealer_Id,
       opneing_dip1: parseFloat(opneing_dip1),
@@ -52,18 +55,25 @@ exports.addrsp = async (req, res) => {
     resp.successr(res, result);
     console.log(result);
   } else {
-    var newarr = rsp.map(function (value) {
-      return value.msactual_closing;
-    });
-    console.log(newarr);
-    let sumMs1 = _.sum([...newarr]);
-    console.log(sumMs1);
-    var newarr2 = rsp.map(function (value) {
-      return value.hsdactual_closing;
-    });
+    let product = rsp.tank.Product;
+    console.log(product);
+    if (product.toLowerCase() == "ms") {
+      closing = rsp.actual_closing_stock;
+    } else {
+      closing = rsp.actual_closing_stock;
+    }
+    // var newarr = rsp.map(function (value) {
+    //   return value.actual_closing_stock;
+    // });
+    // console.log(newarr);
+    // let sumMs1 = _.sum([...newarr]);
+    // console.log(sumMs1);
+    // var newarr2 = rsp.map(function (value) {
+    //   return value.hsdactual_closing;
+    // });
 
-    var sumHsd1 = _.sum([...newarr2]);
-    console.log(sumHsd1);
+    // var sumHsd1 = _.sum([...newarr2]);
+    // console.log(sumHsd1);
 
     // let actualstockMS = rsp.msactual_closing;
     // console.log("actualstock", actualstockMS);
@@ -82,12 +92,12 @@ exports.addrsp = async (req, res) => {
       date: date,
       dealer_Id: dealer_Id,
       opneing_dip1: parseFloat(opneing_dip1),
-      opneing_liter1: sumMs1,
+      opneing_liter1: closing,
 
       rsp1: parseFloat(rsp1),
 
       opneing_dip2: parseFloat(opneing_dip2),
-      opneing_liter2: sumHsd1,
+      opneing_liter2: closing,
 
       rsp2: parseFloat(rsp2),
     });

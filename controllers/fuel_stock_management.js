@@ -24,14 +24,11 @@ exports.addFuelstock = async (req, res) => {
     total_expected_stock,
     actual_closing_stock,
     loss_gain,
-    ms_closing,
-    hsd_closing,
-    msactual_closing,
-    hsdactual_closing,
   } = req.body;
   let rsp = await RSP.findOne({ dealer_Id: req.body.dealer_Id }).sort({
     createdAt: -1,
   });
+  let sales = 0;
   let rs1 = rsp.rsp1;
   let rs2 = rsp.rsp2;
   let de = rsp.date;
@@ -63,7 +60,7 @@ exports.addFuelstock = async (req, res) => {
       }
     }
     console.log("meterseale", meterseale);
-    let sales = _.sum([...meterseale]);
+    sales = _.sum([...meterseale]);
     ///testing
     let testing = [];
     for (const iterator of dsm) {
