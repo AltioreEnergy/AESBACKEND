@@ -1,4 +1,5 @@
 const Dealershipform = require("../models/dealershipform");
+const membershipplan = require("../models/membershipplan");
 const Masteroil = require("../models/masteroil");
 const Product = require("../models/product");
 const Capacity = require("../models/capacity");
@@ -335,16 +336,23 @@ exports.viewonedealershipform = async (req, res) => {
       },
     ]);
   console.log(checkplan);
-  let dateexp = checkplan.planId.expdate;
+  let dateexp = checkplan;
   if (dateexp == null) {
+    let qqq = await membershipplan.findOneAndUpdate(
+      {
+        dealer_id: req.params.id,
+      },
+      { $set: { status: "Panding" } },
+      { new: true }
+    );
+    console.log("yyyyyyy", qqq);
     res.json({
       status: "false",
 
       msg: "your plan has Expired contect to AES Group",
     });
   } else {
-    console.log(dateexp);
-    if (dateexp < getCurrentDate()) {
+    if (dateexp.expdate < getCurrentDate()) {
       await Dealershipform.findOneAndUpdate(
         {
           _id: req.params.id,
@@ -352,6 +360,7 @@ exports.viewonedealershipform = async (req, res) => {
         { $set: { planId: null } },
         { new: true }
       )
+
         .then((data) => resp.successr(res, data))
         .catch((error) => resp.errorr(res, error));
     } else {
@@ -677,3 +686,4 @@ exports.totaldealers = async (req, res) => {
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
 };
+///colne
