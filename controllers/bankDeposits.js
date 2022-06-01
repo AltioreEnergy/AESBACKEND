@@ -187,5 +187,3 @@ exports.updateonebankDeposits = async (req, res) => {
     }
   }
 };
-
-//console
