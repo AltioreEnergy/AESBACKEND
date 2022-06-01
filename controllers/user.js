@@ -85,20 +85,20 @@ cloudinary.config({
   (exports.login = async (req, res, next) => {
     try {
       let { email, password, mobile } = req.body;
-      if (!email) {
-        const response = {
-          status: 401,
-          error: true,
-          success: false,
-          message: "email or mobile_number is requerd",
-          data: [],
-        };
-        res.send(response);
-      }
+      // if (!email) {
+      //   const response = {
+      //     status: 401,
+      //     error: true,
+      //     success: false,
+      //     message: "email or mobile_number is requerd",
+      //     data: [],
+      //   };
+      //   res.send(response);
+      // }
       const userdetails = await User.findOne({
         $or: [
-          { mobile_number: req.body.username, password: req.body.password },
-          { email: req.body.username, password: req.body.password },
+          { mobile_number: req.body.email, password: req.body.password },
+          { email: req.body.email, password: req.body.password },
         ],
       });
 
@@ -362,6 +362,12 @@ exports.verifyotp = async (req, res) => {
 
 exports.viewoneadmin = async (req, res) => {
   await User.findOne({ _id: req.params.id })
+    .then((data) => resp.successr(res, data))
+    .catch((error) => resp.errorr(res, error));
+};
+
+exports.alladmin = async (req, res) => {
+  await User.find()
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
 };

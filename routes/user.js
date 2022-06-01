@@ -16,6 +16,7 @@ const {
   signupsendotp,
   verifyotp,
   viewoneadmin,
+  alladmin,
   //   allusers,
   //   deleteuser,
   //   myprofile
@@ -66,5 +67,5 @@ router.post("/user/login", login);
 router.post("/user/updateoneadmin/:id", multipleUpload, updateoneadmin);
 router.post("/user/changepassadmin/:id", changepassadmin);
 router.get("/user/viewoneadmin/:id", viewoneadmin);
-
+router.get("/user/alladmin", alladmin);
 module.exports = router;
