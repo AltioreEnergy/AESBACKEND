@@ -18,7 +18,7 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-(exports.signup = async (req, res, next) => {
+exports.signup = async (req, res, next) => {
   const user = new User(req.body);
   try {
     const userexist = await User.findOne({ email: req.body.email });
@@ -81,8 +81,8 @@ cloudinary.config({
     }
     next(error);
   }
-}),
-  (exports.login = async (req, res, next) => {
+}
+  exports.login = async (req, res, next) => {
     try {
       let { email, password, mobile } = req.body;
       // if (!email) {
@@ -129,7 +129,7 @@ cloudinary.config({
       }
       next(error);
     }
-  });
+  }
 exports.updateoneadmin = async (req, res) => {
   const { name, email, mobile, password, profilepic, logo } = req.body;
 
@@ -371,3 +371,5 @@ exports.alladmin = async (req, res) => {
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
 };
+
+ 

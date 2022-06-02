@@ -26,7 +26,7 @@ exports.addrsp = async (req, res) => {
   let closingms = [];
   let closinghsd = [];
   let da = await RSP.findOne({ dealer_Id: dealer_Id }).sort({ createdAt: -1 });
-  let de = da.date;
+//  let de = da.date;
   let rsp = await Fs.find({
     $and: [
       {
