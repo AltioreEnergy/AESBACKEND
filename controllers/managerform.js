@@ -129,9 +129,9 @@ exports.allmanager = async (req, res) => {
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
 };
-
+ 
 exports.allmanagerApp = async (req, res) => {
-  await Manegeraddfrom.find({ dealer_id: req.params.dealer_id })
+  await Manegeraddfrom.find({ $and: [{ dealer_id: req.params.dealer_id }, { status: "Active" }] })
     .populate("dealer_id")
     .sort({ createdAt: -1 })
     .then((data) => resp.successr(res, data))
