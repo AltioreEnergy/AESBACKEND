@@ -104,8 +104,16 @@ exports.getDsnform = async (req, res) => {
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
 };
+// exports.getDsnformApp = async (req, res) => {
+//   await DSNaddfrom.find({dealer_id: req.params.dealer_id })
+//     .populate("dealer_Id")
+//     .sort({ createdAt: -1 })
+
+//     .then((data) => resp.successr(res, data))
+//     .catch((error) => resp.errorr(res, error));
+// };
 exports.getDsnformApp = async (req, res) => {
-  await DSNaddfrom.find({dealer_id: req.params.dealer_id })
+  await DSNaddfrom.find({ dealer_Id: req.params.dealer_Id })
     .populate("dealer_Id")
     .sort({ createdAt: -1 })
 
