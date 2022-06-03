@@ -131,7 +131,7 @@ exports.allmanager = async (req, res) => {
 };
  
 exports.allmanagerApp = async (req, res) => {
-  await Manegeraddfrom.find({ $and: [{ dealer_id: req.params.dealer_id }, { status: "Active" }] })
+  await Manegeraddfrom.find({ dealer_id: req.params.dealer_id  })
     .populate("dealer_id")
     .sort({ createdAt: -1 })
     .then((data) => resp.successr(res, data))

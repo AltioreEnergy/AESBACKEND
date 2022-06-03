@@ -109,7 +109,7 @@ exports.allstaff = async (req, res) => {
 };
 exports.allstaffApp = async (req, res) => {
   await staffrom
-    .find({ $and: [{ dealer_id: req.params.dealer_id }, { status: "Active" }] })
+    .find({ dealer_id: req.params.dealer_id })
     .populate("dealer_Id")
     .sort({ createdAt: -1 })
     .then((data) => resp.successr(res, data))

@@ -105,7 +105,7 @@ exports.getDsnform = async (req, res) => {
     .catch((error) => resp.errorr(res, error));
 };
 exports.getDsnformApp = async (req, res) => {
-  await DSNaddfrom.find({ $and: [{ dealer_id: req.params.dealer_id }, { status: "Active" }] })
+  await DSNaddfrom.find({dealer_id: req.params.dealer_id })
     .populate("dealer_Id")
     .sort({ createdAt: -1 })
 
