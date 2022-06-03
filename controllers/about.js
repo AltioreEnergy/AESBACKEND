@@ -1,4 +1,6 @@
 const About = require("../models/about");
+const resp = require("../helpers/apiresponse");
+
 exports.addabout = async (req, res) => {
   const { desc } = req.body;
   const newAbout = new About({
@@ -74,4 +76,18 @@ exports.deleteabout = async (req, res) => {
   }
 };
 
-//console
+ 
+  
+
+  exports.edit_aboutus = async (req, res) => {
+    await About.findOneAndUpdate(
+      {
+        _id: req.params.id,
+      },
+      { $set: req.body },
+      { new: true }
+    )
+      .then((data) => resp.successr(res, data))
+      .catch((error) => resp.errorr(res, error));
+      console.log(req.params.id);
+    };
