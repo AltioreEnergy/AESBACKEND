@@ -69,7 +69,7 @@ router.post("/dealer/addmenegerform", multipleUpload, addmenegerform);
 //     name: "photograh"}]),addmenegerform);
 router.get("/dealer/allmanager", allmanager);
 router.get("/dealer/getonemanager/:id", getonemanager);
-router.get("/dealer/allmanagerApp/:dealer_id", allmanagerApp);
+router.get("/dealer/allmanagerApp/:dealer_Id", allmanagerApp);
 //router.post("/dealer/addmenegerform/:id", addmenegerform);
 router.get("/dealer/deletemanager/:id", deletemanager);
 router.post("/dealer/updateonemanager/:id", multipleUpload, updateonemanager);

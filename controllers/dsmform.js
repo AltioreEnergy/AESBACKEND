@@ -112,6 +112,7 @@ exports.getDsnform = async (req, res) => {
 //     .then((data) => resp.successr(res, data))
 //     .catch((error) => resp.errorr(res, error));
 // };
+// ({ $and: [{dealer_Id: req.params.dealer_Id },{status:"Active"}]})
 exports.getDsnformApp = async (req, res) => {
   await DSNaddfrom.find({ $and: [{dealer_Id: req.params.dealer_Id },{status:"Active"}]})
     .populate("dealer_Id")
