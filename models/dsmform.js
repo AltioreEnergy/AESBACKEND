@@ -24,7 +24,9 @@ const thisSchema = new Schema(
     salary_decieded: { type: String, require: true },
     salary_date: { type: String, require: true },
     apprpved_leave: { type: String, require: true },
-    status: { type: String },
+    status: { type: String,
+    default:"Active" },
+
     shiftManagment: { type: Boolean, default: false },
     stockManagment: { type: Boolean, default: false },
     cashManagment: { type: Boolean, default: false },
