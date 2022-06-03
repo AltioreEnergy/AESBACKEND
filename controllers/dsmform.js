@@ -281,7 +281,7 @@ exports.editDsnform = async (req, res) => {
       }
     }
   }
-};
+};  
 exports.totaldsm = async (req, res) => {
   await DSNaddfrom.countDocuments()
     .then((data) => resp.successr(res, data))
