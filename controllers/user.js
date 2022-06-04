@@ -97,7 +97,7 @@ exports.signup = async (req, res, next) => {
       // }
       const userdetails = await User.findOne({
         $or: [
-          { mobile_number: req.body.email, password: req.body.password },
+          { email: req.body.email, password: req.body.password },
           { email: req.body.email, password: req.body.password },
         ],
       });
