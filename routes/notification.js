@@ -16,6 +16,6 @@ router.post("/admin/addnotification", addnotification);
 router.get("/admin/viewonenotification/:id", viewonenotification);
 router.get("/admin/allnotificationApp/:dealer", allnotificationApp);
 router.get("/admin/allnotification", allnotification);
-router.get("/admin/deletenotification/:id", deletenotification);
+router.delete("/admin/deletenotification/:id", deletenotification);
 
 module.exports = router;

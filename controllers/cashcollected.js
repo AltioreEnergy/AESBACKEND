@@ -69,7 +69,7 @@ exports.addcashcollected = async (req, res) => {
     totalcash += _10 * 10;
   }
   if (_5) {
-    total += _5 * 5;
+    totalcash += _5 * 5;
   }
   if (_2) {
     totalcash += _2 * 2;
