@@ -309,9 +309,9 @@ exports.updateonemanager = async (req, res) => {
 };
 
 exports.managerlogin = async (req, res) => {
-  const { maneger_name, password } = req.body;
+  const { mobile, password } = req.body;
   const maneger = await Manegeraddfrom.findOne({
-    $and: [{ maneger_name: maneger_name }, { password: password }],
+    $and: [{ mobile: mobile }, { password: password }],
   });
   if (maneger) {
     const validPass = password == maneger.password;
