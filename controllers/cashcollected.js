@@ -151,9 +151,8 @@ exports.addcashcollected = async (req, res) => {
         cash_use: sumcu,
         final_cash:
           totalcash + upi_Cash + credit_cash + debit_cash + sumcredit + sumcu,
-        cash_difference:
-          net.net_cash -
-          (totalcash + upi_Cash + credit_cash + debit_cash + sumcredit + sumcu),
+          cash_difference:net.net_cash -(totalcash),
+          
         cash_handed_over_to: cash_handed_over_to,
       });
       // let cash = cashcollected.findOne({ _id: req.body.id })
