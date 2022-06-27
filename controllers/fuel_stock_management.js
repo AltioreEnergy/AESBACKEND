@@ -101,7 +101,7 @@ exports.addFuelstock = async (req, res) => {
     res.json({
       status: "true",
       data: result,
-      msg:"success"
+      msg: "success",
     });
   } else {
     console.log("else", FS);
