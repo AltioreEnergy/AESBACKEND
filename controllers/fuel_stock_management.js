@@ -99,7 +99,7 @@ exports.addFuelstock = async (req, res) => {
     };
     let result = await Fuelstock.create(fsobject);
     res.json({
-      status: "true",
+      status: true,
       msg: "success",
       data: result,
     });
