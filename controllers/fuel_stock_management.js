@@ -101,6 +101,7 @@ exports.addFuelstock = async (req, res) => {
     res.json({
       status: "true",
       data: result,
+      msg:"success"
     });
   } else {
     console.log("else", FS);
@@ -116,11 +117,11 @@ exports.addFuelstock = async (req, res) => {
       tank_receipt: tank_receipt,
       loss_booked: loss_booked,
       total_expected_stock:
-        fuelstock - (sales - testingall) + tank_receipt - loss_booked,
+        fuelstock - ((sales - testingall) + tank_receipt - loss_booked),
       actual_closing_stock: actual_closing_stock,
       loss_gain:
         actual_closing_stock -
-        (fuelstock - (sales - testingall) + tank_receipt - loss_booked),
+        (fuelstock - ((sales - testingall) + tank_receipt - loss_booked)),
     });
     //console.log(net_cash);
 
@@ -129,7 +130,7 @@ exports.addFuelstock = async (req, res) => {
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
   }
-};
+}
 
 exports.allFuelstock = async (req, res) => {
   //await Fuelstock.remove();
