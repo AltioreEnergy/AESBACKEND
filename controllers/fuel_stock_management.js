@@ -100,8 +100,8 @@ exports.addFuelstock = async (req, res) => {
     let result = await Fuelstock.create(fsobject);
     res.json({
       status: "true",
-      data: result,
       msg: "success",
+      data: result,
     });
   } else {
     console.log("else", FS);
@@ -131,7 +131,6 @@ exports.addFuelstock = async (req, res) => {
       .catch((error) => resp.errorr(res, error));
   }
 }
-
 exports.allFuelstock = async (req, res) => {
   //await Fuelstock.remove();
   await Fuelstock.find()
