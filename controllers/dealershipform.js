@@ -97,6 +97,21 @@ if(req.body.mobile ==8103988072){
     },
   };
 
+  const requestmain = http.request(options, function (res) {
+    console.log("rsp", res);
+    const chunks = [];
+
+    res.on("data", function (chunk) {
+      chunks.push(chunk);
+    });
+
+    res.on("end", function () {
+      const body = Buffer.concat(chunks);
+      console.log(body.toString());
+    });
+  });
+  requestmain.write('{"OTP":"6786"}');
+
 
   let qur=  await Dealershipform.findOneAndUpdate(
     { mobile: findexist.mobile },
