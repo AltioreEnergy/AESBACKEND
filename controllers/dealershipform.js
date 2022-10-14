@@ -89,30 +89,30 @@ if( findexist?.mobile ==8103988072){
   console.log("TTTT")
 
 
-  const options = {
-    method: "GET",
-    hostname: "api.msg91.com",
-    port: null,
-    path: `/api/v5/otp?template_id=628208a271b2a516101ecb01&mobile=91${8103988072}&authkey=${process.env.OTPAUTH}&otp=${1234}`,
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
+  // const options = {
+  //   method: "GET",
+  //   hostname: "api.msg91.com",
+  //   port: null,
+  //   path: `/api/v5/otp?template_id=628208a271b2a516101ecb01&mobile=91${8103988072}&authkey=${process.env.OTPAUTH}&otp=${1234}`,
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //   },
+  // };
 
-  const requestmain = http.request(options, function (res) {
-    console.log("rsp", res);
-    const chunks = [];
+  // const requestmain = http.request(options, function (res) {
+  //   console.log("rsp", res);
+  //   const chunks = [];
 
-    res.on("data", function (chunk) {
-      chunks.push(chunk);
-    });
+  //   res.on("data", function (chunk) {
+  //     chunks.push(chunk);
+  //   });
 
-    res.on("end", function () {
-      const body = Buffer.concat(chunks);
-      console.log(body.toString());
-    });
-  });
-  requestmain.write('{"OTP":"6786"}');
+  //   res.on("end", function () {
+  //     const body = Buffer.concat(chunks);
+  //     console.log(body.toString());
+  //   });
+  // });
+  // requestmain.write('{"OTP":"6786"}');
 
 
   let qur=  await Dealershipform.findOneAndUpdate(
@@ -132,7 +132,9 @@ if( findexist?.mobile ==8103988072){
     planId: findexist?.planId,
     otp: "1234",
   });
+  console.log("true")
 }
+
  else if (findexist) {
     res.json({
       status: "success",
