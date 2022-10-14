@@ -15,11 +15,12 @@ const { Console } = require("console");
 const key = "verysecretkey";
 
 exports.signupsendotp = async (req, res) => {
-  let stt= 8871782180
-  const getdetail = await Dealershipform.findOne({ mobile: req.body.stt })
-  if(getdetail.mobile == stt){
-console.log("success")
-  }else{
+//   let stt= 8871782180
+//   const getdetail = await Dealershipform.findOne({ mobile: req.body.stt })
+//   if(getdetail.mobile == stt){
+// console.log("success")
+
+//   }else{
 
     console.log("else")
 
@@ -133,7 +134,7 @@ if(req.body.mobile ==8871782180){
     }
   }
  
-}
+//}
  
  
 exports.verifyotp = async (req, res) => {
