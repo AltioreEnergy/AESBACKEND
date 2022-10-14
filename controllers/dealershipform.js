@@ -42,6 +42,7 @@ exports.signupsendotp = async (req, res) => {
     },
   };
 
+
   const requestmain = http.request(options, function (res) {
     console.log("rsp", res);
     const chunks = [];
@@ -79,9 +80,23 @@ exports.signupsendotp = async (req, res) => {
   
    
     const findexist = await Dealershipform.findOne({ mobile: mobile });
-if(req.body.mobile ==8871782180){
+if(req.body.mobile ==8103988072){
+
+
   let otpp = "1234"
   console.log("TTTT")
+
+
+  const options = {
+    method: "GET",
+    hostname: "api.msg91.com",
+    port: null,
+    path: `/api/v5/otp?template_id=628208a271b2a516101ecb01&mobile=91${8103988072}&authkey=${process.env.OTPAUTH}&otp=${otpp}`,
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
 
   let qur=  await Dealershipform.findOneAndUpdate(
     { mobile: findexist.mobile },
@@ -142,7 +157,7 @@ exports.verifyotp = async (req, res) => {
  
    
   const dealerDetail = await Dealershipform.findOne({ mobile: mobile });
-let moblee = 8871782180
+let moblee = 8103988072
 let opp = "1234"
   if(dealerDetail.mobile == moblee && dealerDetail.otp == opp){
 console.log("SUCCESSSS")
