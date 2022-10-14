@@ -371,23 +371,6 @@ exports.signupwithEmail = async (req, res) => {
       data: {},
     });
   } else {
-    // if (!dealerDetail.userverified) {
-      // const token = jwt.sign(
-      //   {
-      //     dealerId: dealerDetail._id,
-      //   },
-      //   key,
-      //   {
-      //     expiresIn: "2m",
-      //   }
-      // )
-      // await Dealershipform.findOneAndUpdate(
-      //   {
-      //     _id: dealerDetail._id,
-      //   },
-      //   { $set: { userverified: true } },
-      //   { new: true }
-      // )
       newDealershipform
       .save()
       .then(async (result) => {
@@ -400,8 +383,6 @@ exports.signupwithEmail = async (req, res) => {
             expiresIn: "2m",
           }
         )
-      
-    
       res.json({
         status: "success",
         msg: "Successfully signup",
@@ -410,16 +391,60 @@ exports.signupwithEmail = async (req, res) => {
         token: token,
         mobile:result?.mobile,
         // otpverified: true,
-        email:result?.email
+        email:result?.email,
+        password:result?.password,
       });
-    })
+    }).catch((error) => resp.errorr(res, error));
       
-     
- 
-  
- 
   }
 }
+
+ 
+exports.loginwithemail = async (req, res) => {
+  const { mobile, email, password } = req.body;
+
+  console.log("reqbody",req.body)
+  const user = await Dealershipform.findOne({email:email})
+  console.log("findOne",user)
+  if (user) {
+    console.log("validPass",user)
+    const validPass = await bcrypt.compare(password, user.password);
+    if (validPass) {
+      console.log("validPass",validPass)
+      const token = jwt.sign(
+        {
+          dealerId: user._id,
+        },
+        key,
+        {
+          expiresIn: 86400000,
+        }
+      );
+      res.header("auth-token", token).status(200).send({
+        status: "success",
+      token: token,
+      msg: "Welcome Back",
+      otpverified: true,
+      redirectto: "dashboard",
+      data: user,
+      });
+    } else {
+      res.status(400).json({
+        status: false,
+        msg: "Incorrect Password",
+        error: "error",
+      });
+    }
+  } else {
+    res.status(400).json({
+      status: false,
+      msg: "admin Doesnot Exist",
+      error: "error",
+    });
+  }
+};
+
+
 
 exports.addeditbasicdealershipform = async (req, res) => {
   const {

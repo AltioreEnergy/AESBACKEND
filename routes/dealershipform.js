@@ -39,7 +39,8 @@ const {
   alltankmapApp,
   allnozzleApp,
   totaldealers,
-  signupwithEmail
+  signupwithEmail,
+  loginwithemail
    
 } = require("../controllers/dealershipform");
 
@@ -79,7 +80,8 @@ router.get("/dealer/getonenozzle/:id", getonenozzle);
 router.get("/dealer/deletenozzle/:id", deletenozzle);
 router.get("/dealer/totaldealers", totaldealers);
 router.post("/dealer/signupwithEmail", signupwithEmail);
+router.post("/dealer/loginwithemail", loginwithemail);
+
 
  
 module.exports = router;
- 
