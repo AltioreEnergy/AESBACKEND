@@ -127,7 +127,7 @@ if(req.body.mobile ==8103988072){
     msg: "Welcome Back Otp send successfully",
     registered: findexist?.mobile,
     _id: findexist?._id,
-    planId: findexist?.planId,
+   // planId: findexist?.planId,
     otp: otpp,
   });
 }
