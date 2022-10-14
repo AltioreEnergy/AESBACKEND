@@ -80,7 +80,7 @@ exports.signupsendotp = async (req, res) => {
   
    
     const findexist = await Dealershipform.findOne({ mobile: mobile });
-if(req.body.mobile ==8103988072){
+if(req.body.mobile ==7489651191){
 
 
   let otpp = "1234"
@@ -114,7 +114,7 @@ if(req.body.mobile ==8103988072){
 
 
   let qur=  await Dealershipform.findOneAndUpdate(
-    {mobile: 8103988072 },
+    {mobile: 7489651191 },
     
     {$set: { otp:"1234"}} ,
   
@@ -172,7 +172,7 @@ exports.verifyotp = async (req, res) => {
  
    
   const dealerDetail = await Dealershipform.findOne({ mobile: mobile });
-let moblee = 8103988072
+let moblee = 7489651191
 let opp = "1234"
   if(dealerDetail.mobile == moblee && dealerDetail.otp == opp){
 console.log("SUCCESSSS")
