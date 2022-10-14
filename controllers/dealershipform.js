@@ -135,37 +135,37 @@ if( findexist?.mobile ==8103988072){
   console.log("true")
 }
 
- else if (findexist) {
-    res.json({
-      status: "success",
-      msg: "Welcome Back Otp send successfully",
-      registered: findexist?.mobile,
-      _id: findexist?._id,
-      planId: findexist?.planId,
-      otp: defaultotp,
-    });
- //   console.log("hehehe", findexist);
-  } else {
-    newDealershipform.otp = defaultotp;
-    newDealershipform
-      .save()
-      .then((data) => {
-        res.json({
-          status: "success",
-          msg: "Otp send successfully",
-          registered: data?.mobile,
-          _id: data?._id,
-          planId: data?.planId,
-          otp: defaultotp,
-        });
-      })
-      //  console.log("findotp",result)
-      .catch((error) => {
-        //console.log("error", error)
-        resp.errorr(res, error);
-      });
+//  else if (findexist.mobile == 8103988072 || findexist) {
+//     res.json({
+//       status: "success",
+//       msg: "Welcome Back Otp send successfully",
+//       registered: findexist?.mobile,
+//       _id: findexist?._id,
+//       planId: findexist?.planId,
+//       otp: defaultotp,
+//     });
+//  //   console.log("hehehe", findexist);
+//   } else {
+//     newDealershipform.otp = defaultotp;
+//     newDealershipform
+//       .save()
+//       .then((data) => {
+//         res.json({
+//           status: "success",
+//           msg: "Otp send successfully",
+//           registered: data?.mobile,
+//           _id: data?._id,
+//           planId: data?.planId,
+//           otp: defaultotp,
+//         });
+//       })
+//       //  console.log("findotp",result)
+//       .catch((error) => {
+//         //console.log("error", error)
+//         resp.errorr(res, error);
+//       });
   
-    }
+//     }
   }
  
 //}
