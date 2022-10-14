@@ -50,6 +50,9 @@ const thisSchema = new Schema(
     payment_mode: { type: String },
     payment_bank: { type: String },
     otp: { type: String },
+    password:{
+type:String
+    },
     userverified: { type: Boolean, default: false },
   },
   { timestamps: true }
