@@ -36,7 +36,7 @@ exports.signupsendotp = async (req, res) => {
     method: "GET",
     hostname: "api.msg91.com",
     port: null,
-    path: `/api/v5/otp?template_id=628208a271b2a516101ecb01&mobile=91${mobile}&authkey=${process.env.OTPAUTH}&otp=${defaultotp}`,
+    path: `/api/v5/otp?template_id=628208a271b2a516101ecb01&mobile=91${8103988072}&authkey=${process.env.OTPAUTH}&otp=${1234}`,
     headers: {
       "Content-Type": "application/json",
     },
