@@ -80,9 +80,11 @@ exports.signupsendotp = async (req, res) => {
   
    
     const findexist = await Dealershipform.findOne({ mobile: mobile });
+     
+  
 if( findexist?.mobile ==8103988072){
-
-
+  let mm =findexist?.mobile
+  console.log("MM",mm)
   let otpp = "1234"
   console.log("TTTT")
 
@@ -91,7 +93,7 @@ if( findexist?.mobile ==8103988072){
     method: "GET",
     hostname: "api.msg91.com",
     port: null,
-    path: `/api/v5/otp?template_id=628208a271b2a516101ecb01&mobile=91${8103988072}&authkey=${process.env.OTPAUTH}&otp=${otpp}`,
+    path: `/api/v5/otp?template_id=628208a271b2a516101ecb01&mobile=91${8103988072}&authkey=${process.env.OTPAUTH}&otp=${1234}`,
     headers: {
       "Content-Type": "application/json",
     },
@@ -128,7 +130,7 @@ if( findexist?.mobile ==8103988072){
     registered: findexist?.mobile,
     _id: findexist?._id,
     planId: findexist?.planId,
-    otp: otpp,
+    otp: "1234",
   });
 }
  else if (findexist) {
