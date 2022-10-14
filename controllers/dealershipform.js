@@ -80,7 +80,7 @@ exports.signupsendotp = async (req, res) => {
   
    
     const findexist = await Dealershipform.findOne({ mobile: mobile });
-if(req.body.mobile ==8103988072){
+if( findexist?.mobile ==8103988072){
 
 
   let otpp = "1234"
