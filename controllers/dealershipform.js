@@ -7,6 +7,8 @@ const State = require("../models/state");
 const District = require("../models/district");
 const Tank = require("../models/tank_map");
 const Nozzle = require("../models/nozzle_map");
+const bcrypt = require("bcryptjs");
+
 
 const resp = require("../helpers/apiresponse");
 //var countrystatecity = require("country-state-city");
@@ -36,7 +38,7 @@ exports.signupsendotp = async (req, res) => {
     method: "GET",
     hostname: "api.msg91.com",
     port: null,
-    path: `/api/v5/otp?template_id=628208a271b2a516101ecb01&mobile=91${8103988072}&authkey=${process.env.OTPAUTH}&otp=${1234}`,
+    path: `/api/v5/otp?template_id=628208a271b2a516101ecb01&mobile=91${mobile}&authkey=${process.env.OTPAUTH}&otp=${defaultotp}`,
     headers: {
       "Content-Type": "application/json",
     },
@@ -89,30 +91,30 @@ if( findexist?.mobile ==8103988072){
   console.log("TTTT")
 
 
-  // const options = {
-  //   method: "GET",
-  //   hostname: "api.msg91.com",
-  //   port: null,
-  //   path: `/api/v5/otp?template_id=628208a271b2a516101ecb01&mobile=91${8103988072}&authkey=${process.env.OTPAUTH}&otp=${1234}`,
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //   },
-  // };
+  const options = {
+    method: "GET",
+    hostname: "api.msg91.com",
+    port: null,
+    path: `/api/v5/otp?template_id=628208a271b2a516101ecb01&mobile=91${8103988072}&authkey=${process.env.OTPAUTH}&otp=${1234}`,
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
 
-  // const requestmain = http.request(options, function (res) {
-  //   console.log("rsp", res);
-  //   const chunks = [];
+  const requestmain = http.request(options, function (res) {
+    console.log("rsp", res);
+    const chunks = [];
 
-  //   res.on("data", function (chunk) {
-  //     chunks.push(chunk);
-  //   });
+    res.on("data", function (chunk) {
+      chunks.push(chunk);
+    });
 
-  //   res.on("end", function () {
-  //     const body = Buffer.concat(chunks);
-  //     console.log(body.toString());
-  //   });
-  // });
-  // requestmain.write('{"OTP":"6786"}');
+    res.on("end", function () {
+      const body = Buffer.concat(chunks);
+      console.log(body.toString());
+    });
+  });
+  requestmain.write('{"OTP":"6786"}');
 
 
   let qur=  await Dealershipform.findOneAndUpdate(
@@ -132,40 +134,39 @@ if( findexist?.mobile ==8103988072){
     planId: findexist?.planId,
     otp: "1234",
   });
-  console.log("true")
 }
 
-//  else if (findexist.mobile == 8103988072 || findexist) {
-//     res.json({
-//       status: "success",
-//       msg: "Welcome Back Otp send successfully",
-//       registered: findexist?.mobile,
-//       _id: findexist?._id,
-//       planId: findexist?.planId,
-//       otp: defaultotp,
-//     });
-//  //   console.log("hehehe", findexist);
-//   } else {
-//     newDealershipform.otp = defaultotp;
-//     newDealershipform
-//       .save()
-//       .then((data) => {
-//         res.json({
-//           status: "success",
-//           msg: "Otp send successfully",
-//           registered: data?.mobile,
-//           _id: data?._id,
-//           planId: data?.planId,
-//           otp: defaultotp,
-//         });
-//       })
-//       //  console.log("findotp",result)
-//       .catch((error) => {
-//         //console.log("error", error)
-//         resp.errorr(res, error);
-//       });
+ else if (findexist) {
+    res.json({
+      status: "success",
+      msg: "Welcome Back Otp send successfully",
+      registered: findexist?.mobile,
+      _id: findexist?._id,
+      planId: findexist?.planId,
+      otp: defaultotp,
+    });
+ //   console.log("hehehe", findexist);
+  } else {
+    newDealershipform.otp = defaultotp;
+    newDealershipform
+      .save()
+      .then((data) => {
+        res.json({
+          status: "success",
+          msg: "Otp send successfully",
+          registered: data?.mobile,
+          _id: data?._id,
+          planId: data?.planId,
+          otp: defaultotp,
+        });
+      })
+      //  console.log("findotp",result)
+      .catch((error) => {
+        //console.log("error", error)
+        resp.errorr(res, error);
+      });
   
-//     }
+    }
   }
  
 //}
@@ -332,6 +333,8 @@ await Dealershipform.findOneAndUpdate(
     });
   }
 }
+
+
  //exports.loginwithemail = async()
 exports.logout = async (req, res) => {
   jwt.sign(" auth-token", key, { expiresIn: 1648581321 }, (logout, err) => {
@@ -343,6 +346,81 @@ exports.logout = async (req, res) => {
     }
   });
 };
+exports.signupwithEmail = async (req, res) => {
+  const { dealer_name,mobile,email,password} = req.body;
+
+
+  const salt = await bcrypt.genSalt(10);
+  const hashPassword = await bcrypt.hash(password, salt);
+  const newDealershipform= new Dealershipform({
+    dealer_name:dealer_name,
+    mobile:mobile,
+    email:email,
+    password: hashPassword,
+
+   });
+
+  
+   const dealerDetail = await Dealershipform.findOne({
+    $or: [{ email: email }, { mobile: mobile }],
+  });
+  if (dealerDetail) {
+    res.status(400).json({
+      status: false,
+      msg: "Already Exists",
+      data: {},
+    });
+  } else {
+    // if (!dealerDetail.userverified) {
+      // const token = jwt.sign(
+      //   {
+      //     dealerId: dealerDetail._id,
+      //   },
+      //   key,
+      //   {
+      //     expiresIn: "2m",
+      //   }
+      // )
+      // await Dealershipform.findOneAndUpdate(
+      //   {
+      //     _id: dealerDetail._id,
+      //   },
+      //   { $set: { userverified: true } },
+      //   { new: true }
+      // )
+      newDealershipform
+      .save()
+      .then(async (result) => {
+        const token = jwt.sign(
+          {
+            dealerId: result._id,
+          },
+          key,
+          {
+            expiresIn: "2m",
+          }
+        )
+      
+    
+      res.json({
+        status: "success",
+        msg: "Successfully signup",
+        registered:result?.mobile,
+        _id: result?._id,
+        token: token,
+        mobile:result?.mobile,
+        // otpverified: true,
+        email:result?.email
+      });
+    })
+      
+     
+ 
+  
+ 
+  }
+}
+
 exports.addeditbasicdealershipform = async (req, res) => {
   const {
     dealer_name,
