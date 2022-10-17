@@ -11,7 +11,7 @@ const thisSchema = new Schema(
     },
     dealer_name: { type: String, require: true },
     mobile: { type: Number, require: true },
-    email: { type: String, require: true },
+    email: { type: String, require: true,default:'' },
     master_oil_company: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "masteroil",
@@ -51,7 +51,8 @@ const thisSchema = new Schema(
     payment_bank: { type: String },
     otp: { type: String },
     password:{
-type:String
+type:String,
+default:''
     },
     userverified: { type: Boolean, default: false },
   },
