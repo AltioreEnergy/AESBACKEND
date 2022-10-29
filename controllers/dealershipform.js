@@ -64,7 +64,7 @@ exports.signupsendotp = async (req, res) => {
     mobile: mobile,
     otp :defaultotp,
     email:req.body.email,
-    password:req.body.password
+   password:req.body.password
 
    });
    console.log("lllll",newDealershipform)
@@ -94,8 +94,8 @@ exports.signupsendotp = async (req, res) => {
          registered: data?.mobile,
          _id: data?._id,
           otp:defaultotp,
-          email:data?.email,
-          password:data?.password,
+          // email:data?.email,
+          // password:data?.password,
 
         })
         
@@ -215,8 +215,8 @@ exports.verifyotp = async (req, res) => {
             msg: "Continue signup",
             otpverified: true,
             redirectto: "signupdetail",
-            email:dealerDetail.email,
-            password:dealerDetail.password
+            // email:dealerDetail.email,
+            // password:dealerDetail.password
           });
         }
       }
